@@ -14,6 +14,56 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_invites: {
+        Row: {
+          catatan: string | null
+          code: string
+          created_at: string
+          created_by: string | null
+          expires_at: string
+          id: string
+          instansi_id: string | null
+          revoked_at: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          used_at: string | null
+          used_by: string | null
+        }
+        Insert: {
+          catatan?: string | null
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string
+          id?: string
+          instansi_id?: string | null
+          revoked_at?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Update: {
+          catatan?: string | null
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string
+          id?: string
+          instansi_id?: string | null
+          revoked_at?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_invites_instansi_id_fkey"
+            columns: ["instansi_id"]
+            isOneToOne: false
+            referencedRelation: "instansi"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_summary: {
         Row: {
           event_id: string | null
@@ -755,6 +805,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      redeem_admin_invite: { Args: { _code: string }; Returns: Json }
       slugify: { Args: { value: string }; Returns: string }
       trending_score: { Args: { _kebijakan_id: string }; Returns: number }
       user_instansi: { Args: { _user_id: string }; Returns: string }
