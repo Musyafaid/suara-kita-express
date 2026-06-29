@@ -21,16 +21,15 @@ function AdminDashboard() {
   const { data: kpi } = useQuery({
     queryKey: ["admin-kpi"],
     queryFn: async () => {
-      const ct = (t: string, q?: (b: any) => any) => {
-        let b = supabase.from(t).select("id", { count: "exact", head: true });
-        if (q) b = q(b);
-        return b;
-      };
       const [users, ins, keb, ev, va, vd, kom, vot] = await Promise.all([
-        ct("profiles"), ct("instansi"), ct("kebijakan"), ct("event_voting"),
-        ct("event_voting", (b) => b.eq("status", "aktif")),
-        ct("event_voting", (b) => b.eq("status", "ditutup")),
-        ct("komentar"), ct("voting"),
+        supabase.from("profiles").select("id", { count: "exact", head: true }),
+        supabase.from("instansi").select("id", { count: "exact", head: true }),
+        supabase.from("kebijakan").select("id", { count: "exact", head: true }),
+        supabase.from("event_voting").select("id", { count: "exact", head: true }),
+        supabase.from("event_voting").select("id", { count: "exact", head: true }).eq("status", "aktif"),
+        supabase.from("event_voting").select("id", { count: "exact", head: true }).eq("status", "ditutup"),
+        supabase.from("komentar").select("id", { count: "exact", head: true }),
+        supabase.from("voting").select("id", { count: "exact", head: true }),
       ]);
       return {
         users: users.count ?? 0, ins: ins.count ?? 0, keb: keb.count ?? 0, ev: ev.count ?? 0,

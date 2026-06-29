@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AdminRouteRouteImport } from './routes/_admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as KebijakanIndexRouteImport } from './routes/kebijakan.index'
 import { Route as EventIndexRouteImport } from './routes/event.index'
 import { Route as KebijakanSlugRouteImport } from './routes/kebijakan.$slug'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
+import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin.index'
 import { Route as AuthenticatedDashboardRiwayatRouteImport } from './routes/_authenticated/dashboard.riwayat'
 import { Route as AuthenticatedDashboardProfilRouteImport } from './routes/_authenticated/dashboard.profil'
 import { Route as AuthenticatedDashboardNotifikasiRouteImport } from './routes/_authenticated/dashboard.notifikasi'
@@ -35,6 +37,10 @@ const AuthRoute = AuthRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/_admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -68,6 +74,11 @@ const AuthenticatedDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AdminAdminIndexRoute = AdminAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AuthenticatedDashboardRiwayatRoute =
   AuthenticatedDashboardRiwayatRouteImport.update({
     id: '/dashboard/riwayat',
@@ -105,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/admin/': typeof AdminAdminIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -119,11 +131,13 @@ export interface FileRoutesByTo {
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/admin': typeof AdminAdminIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_admin': typeof AdminRouteRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -135,6 +149,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/_authenticated/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/_authenticated/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/_admin/admin/': typeof AdminAdminIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -151,6 +166,7 @@ export interface FileRouteTypes {
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
     | '/dashboard/riwayat'
+    | '/admin/'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,10 +181,12 @@ export interface FileRouteTypes {
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
     | '/dashboard/riwayat'
+    | '/admin'
     | '/dashboard'
   id:
     | '__root__'
     | '/'
+    | '/_admin'
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
@@ -180,11 +198,13 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/notifikasi'
     | '/_authenticated/dashboard/profil'
     | '/_authenticated/dashboard/riwayat'
+    | '/_admin/admin/'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -215,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -259,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_admin/admin/': {
+      id: '/_admin/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminAdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/_authenticated/dashboard/riwayat': {
       id: '/_authenticated/dashboard/riwayat'
       path: '/dashboard/riwayat'
@@ -290,6 +324,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminAdminIndexRoute: typeof AdminAdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminAdminIndexRoute: AdminAdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardBookmarkRoute: typeof AuthenticatedDashboardBookmarkRoute
   AuthenticatedDashboardNotifikasiRoute: typeof AuthenticatedDashboardNotifikasiRoute
@@ -311,6 +357,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
