@@ -2,14 +2,13 @@ import { createFileRoute, useNavigate, useSearch, Link } from "@tanstack/react-r
 import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { ArrowLeft, Loader2, Vote } from "lucide-react";
+import { ArrowLeft, Loader as Loader2, Vote } from "lucide-react";
 
 const searchSchema = z.object({
   tab: z.enum(["login", "register", "forgot"]).optional(),
@@ -30,9 +29,13 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   const handleGoogle = async () => {
-    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (res.error) toast.error(res.error.message);
-    else if (!res.redirected) navigate({ to: search.redirect ?? "/dashboard" });
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin + "/auth",
+      },
+    });
+    if (error) toast.error(error.message);
   };
 
   // LOGIN
