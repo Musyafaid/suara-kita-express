@@ -130,6 +130,50 @@ export type Database = {
           },
         ]
       }
+      artikel: {
+        Row: {
+          id: string
+          event_id: string
+          judul: string
+          konten: string
+          sumber: string | null
+          penulis: string | null
+          urutan: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          event_id: string
+          judul: string
+          konten: string
+          sumber?: string | null
+          penulis?: string | null
+          urutan?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          event_id?: string
+          judul?: string
+          konten?: string
+          sumber?: string | null
+          penulis?: string | null
+          urutan?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "artikel_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "event_voting"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string

@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, FileText } from "lucide-react";
+import { Clock, FileText, BookOpen } from "lucide-react";
 import { VotePanel } from "@/components/vote-panel";
 import { KomentarSection } from "@/components/komentar-section";
 
@@ -22,7 +22,7 @@ function EventDetail() {
     queryFn: async () => {
       const { data } = await supabase
         .from("event_voting")
-        .select("*,instansi:instansi_id(nama),event_kebijakan(kebijakan:kebijakan_id(id,slug,judul,deskripsi,thumbnail_url))")
+        .select("*,instansi:instansi_id(nama),event_kebijakan(kebijakan:kebijakan_id(id,slug,judul,deskripsi,thumbnail_url)),artikel(*)")
         .eq("slug", slug)
         .maybeSingle();
       if (!data) throw notFound();
@@ -80,6 +80,33 @@ function EventDetail() {
                       {ek.kebijakan.deskripsi && <div className="text-xs text-muted-foreground line-clamp-2 mt-1">{ek.kebijakan.deskripsi}</div>}
                     </div>
                   </Link>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Artikel Terkait */}
+          {data.artikel && data.artikel.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-primary" /> Artikel Terkait
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {data.artikel.map((a: any) => (
+                  <div key={a.id} className="rounded-lg border p-4 bg-card">
+                    <h4 className="font-semibold">{a.judul}</h4>
+                    <p className="mt-1 text-sm text-muted-foreground whitespace-pre-wrap">{a.konten}</p>
+                    <div className="mt-2 flex gap-3 text-xs text-muted-foreground">
+                      {a.penulis && <span>Penulis: {a.penulis}</span>}
+                      {a.sumber && (
+                        <a href={a.sumber} target="_blank" rel="noreferrer" className="text-primary hover:underline">
+                          Baca Sumber
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 ))}
               </CardContent>
             </Card>
