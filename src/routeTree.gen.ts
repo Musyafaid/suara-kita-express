@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KebijakanIndexRouteImport } from './routes/kebijakan.index'
+import { Route as KebijakanSlugRouteImport } from './routes/kebijakan.$slug'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -28,35 +30,64 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KebijakanIndexRoute = KebijakanIndexRouteImport.update({
+  id: '/kebijakan/',
+  path: '/kebijakan/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KebijakanSlugRoute = KebijakanSlugRouteImport.update({
+  id: '/kebijakan/$slug',
+  path: '/kebijakan/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/kebijakan/': typeof KebijakanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/kebijakan': typeof KebijakanIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/kebijakan/': typeof KebijakanIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/reset-password'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/kebijakan/$slug'
+    | '/kebijakan/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password'
-  id: '__root__' | '/' | '/auth' | '/reset-password'
+  to: '/' | '/auth' | '/reset-password' | '/kebijakan/$slug' | '/kebijakan'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/kebijakan/$slug'
+    | '/kebijakan/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  KebijakanSlugRoute: typeof KebijakanSlugRoute
+  KebijakanIndexRoute: typeof KebijakanIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +113,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kebijakan/': {
+      id: '/kebijakan/'
+      path: '/kebijakan'
+      fullPath: '/kebijakan/'
+      preLoaderRoute: typeof KebijakanIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kebijakan/$slug': {
+      id: '/kebijakan/$slug'
+      path: '/kebijakan/$slug'
+      fullPath: '/kebijakan/$slug'
+      preLoaderRoute: typeof KebijakanSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +134,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  KebijakanSlugRoute: KebijakanSlugRoute,
+  KebijakanIndexRoute: KebijakanIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

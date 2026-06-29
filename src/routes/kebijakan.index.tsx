@@ -69,17 +69,17 @@ function KebijakanIndex() {
                 placeholder="Cari kebijakan..."
                 className="pl-9"
                 defaultValue={search.q ?? ""}
-                onChange={(e) => navigate({ to: "/kebijakan", search: (s) => ({ ...s, q: e.target.value || undefined }) })}
+                onChange={(e) => navigate({ to: "/kebijakan", search: { ...search, q: e.target.value || undefined } })}
               />
             </div>
-            <Select value={search.kategori ?? "all"} onValueChange={(v) => navigate({ to: "/kebijakan", search: (s) => ({ ...s, kategori: v === "all" ? undefined : v }) })}>
+            <Select value={search.kategori ?? "all"} onValueChange={(v) => navigate({ to: "/kebijakan", search: { ...search, kategori: v === "all" ? undefined : v } })}>
               <SelectTrigger className="w-full md:w-48"><SelectValue placeholder="Kategori" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Semua Kategori</SelectItem>
                 {kategoriList?.map((k) => <SelectItem key={k.id} value={k.slug}>{k.nama}</SelectItem>)}
               </SelectContent>
             </Select>
-            <Select value={search.status ?? "all"} onValueChange={(v) => navigate({ to: "/kebijakan", search: (s) => ({ ...s, status: v === "all" ? undefined : v }) })}>
+            <Select value={search.status ?? "all"} onValueChange={(v) => navigate({ to: "/kebijakan", search: { ...search, status: v === "all" ? undefined : v } })}>
               <SelectTrigger className="w-full md:w-52"><SelectValue placeholder="Status" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Semua Status</SelectItem>
