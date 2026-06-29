@@ -758,6 +758,15 @@ export type Database = {
       slugify: { Args: { value: string }; Returns: string }
       trending_score: { Args: { _kebijakan_id: string }; Returns: number }
       user_instansi: { Args: { _user_id: string }; Returns: string }
+      write_audit: {
+        Args: {
+          _action: string
+          _metadata: Json
+          _resource_id: string
+          _resource_type: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "super_admin" | "admin_instansi" | "masyarakat"
