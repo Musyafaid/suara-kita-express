@@ -23,6 +23,7 @@ import { Route as AdminAdminIndexRouteImport } from './routes/_admin/admin.index
 import { Route as AuthenticatedDashboardRiwayatRouteImport } from './routes/_authenticated/dashboard.riwayat'
 import { Route as AuthenticatedDashboardProfilRouteImport } from './routes/_authenticated/dashboard.profil'
 import { Route as AuthenticatedDashboardNotifikasiRouteImport } from './routes/_authenticated/dashboard.notifikasi'
+import { Route as AuthenticatedDashboardInviteRouteImport } from './routes/_authenticated/dashboard.invite'
 import { Route as AuthenticatedDashboardBookmarkRouteImport } from './routes/_authenticated/dashboard.bookmark'
 import { Route as AdminAdminUserRouteImport } from './routes/_admin/admin.user'
 import { Route as AdminAdminPengaturanRouteImport } from './routes/_admin/admin.pengaturan'
@@ -108,6 +109,12 @@ const AuthenticatedDashboardNotifikasiRoute =
     path: '/dashboard/notifikasi',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDashboardInviteRoute =
+  AuthenticatedDashboardInviteRouteImport.update({
+    id: '/dashboard/invite',
+    path: '/dashboard/invite',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardBookmarkRoute =
   AuthenticatedDashboardBookmarkRouteImport.update({
     id: '/dashboard/bookmark',
@@ -190,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/admin/pengaturan': typeof AdminAdminPengaturanRoute
   '/admin/user': typeof AdminAdminUserRoute
   '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/dashboard/invite': typeof AuthenticatedDashboardInviteRoute
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
@@ -216,6 +224,7 @@ export interface FileRoutesByTo {
   '/admin/pengaturan': typeof AdminAdminPengaturanRoute
   '/admin/user': typeof AdminAdminUserRoute
   '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/dashboard/invite': typeof AuthenticatedDashboardInviteRoute
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
@@ -245,6 +254,7 @@ export interface FileRoutesById {
   '/_admin/admin/pengaturan': typeof AdminAdminPengaturanRoute
   '/_admin/admin/user': typeof AdminAdminUserRoute
   '/_authenticated/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/_authenticated/dashboard/invite': typeof AuthenticatedDashboardInviteRoute
   '/_authenticated/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/_authenticated/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
   '/_authenticated/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/admin/pengaturan'
     | '/admin/user'
     | '/dashboard/bookmark'
+    | '/dashboard/invite'
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
     | '/dashboard/riwayat'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/admin/pengaturan'
     | '/admin/user'
     | '/dashboard/bookmark'
+    | '/dashboard/invite'
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
     | '/dashboard/riwayat'
@@ -327,6 +339,7 @@ export interface FileRouteTypes {
     | '/_admin/admin/pengaturan'
     | '/_admin/admin/user'
     | '/_authenticated/dashboard/bookmark'
+    | '/_authenticated/dashboard/invite'
     | '/_authenticated/dashboard/notifikasi'
     | '/_authenticated/dashboard/profil'
     | '/_authenticated/dashboard/riwayat'
@@ -444,6 +457,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard/notifikasi'
       fullPath: '/dashboard/notifikasi'
       preLoaderRoute: typeof AuthenticatedDashboardNotifikasiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/invite': {
+      id: '/_authenticated/dashboard/invite'
+      path: '/dashboard/invite'
+      fullPath: '/dashboard/invite'
+      preLoaderRoute: typeof AuthenticatedDashboardInviteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard/bookmark': {
@@ -569,6 +589,7 @@ const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardBookmarkRoute: typeof AuthenticatedDashboardBookmarkRoute
+  AuthenticatedDashboardInviteRoute: typeof AuthenticatedDashboardInviteRoute
   AuthenticatedDashboardNotifikasiRoute: typeof AuthenticatedDashboardNotifikasiRoute
   AuthenticatedDashboardProfilRoute: typeof AuthenticatedDashboardProfilRoute
   AuthenticatedDashboardRiwayatRoute: typeof AuthenticatedDashboardRiwayatRoute
@@ -577,6 +598,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardBookmarkRoute: AuthenticatedDashboardBookmarkRoute,
+  AuthenticatedDashboardInviteRoute: AuthenticatedDashboardInviteRoute,
   AuthenticatedDashboardNotifikasiRoute: AuthenticatedDashboardNotifikasiRoute,
   AuthenticatedDashboardProfilRoute: AuthenticatedDashboardProfilRoute,
   AuthenticatedDashboardRiwayatRoute: AuthenticatedDashboardRiwayatRoute,
