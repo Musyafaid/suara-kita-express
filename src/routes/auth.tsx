@@ -28,43 +28,20 @@ function AuthPage() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleGoogle = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: window.location.href,
-          skipBrowserRedirect: true,
-        },
-      });
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-      if (data?.url) {
-        const popup = window.open(data.url, "oauth", "width=500,height=600,left=" + (window.screenX + (window.outerWidth - 500) / 2) + ",top=" + (window.screenY + (window.outerHeight - 600) / 2));
-        if (!popup) {
-          toast.error("Popup diblokir. Mohon izinkan popup untuk login.");
-          return;
-        }
-        const checkPopup = setInterval(async () => {
-          try {
-            if (popup.closed) {
-              clearInterval(checkPopup);
-              const { data: sessionData } = await supabase.auth.getSession();
-              if (sessionData.session) {
-                toast.success("Berhasil masuk!");
-                navigate({ to: search.redirect ?? "/dashboard" });
-              }
-            }
-          } catch {
-            clearInterval(checkPopup);
-          }
-        }, 500);
-      }
-    } catch (e: any) {
-      toast.error(e.message ?? "Gagal masuk dengan Google");
-    }
+  const handleMagicLink = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const email = String(fd.get("email"));
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: window.location.origin + "/auth",
+      },
+    });
+    setLoading(false);
+    if (error) toast.error(error.message);
+    else toast.success("Link login dikirim ke email Anda. Silakan cek inbox.");
   };
 
   // LOGIN
@@ -149,9 +126,15 @@ function AuthPage() {
                 </Button>
               </form>
               <Separator label="atau" />
-              <Button variant="outline" className="w-full" onClick={handleGoogle}>
-                <GoogleIcon className="mr-2 h-4 w-4" /> Lanjutkan dengan Google
-              </Button>
+              <form onSubmit={handleMagicLink} className="space-y-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="magic-email">Email (Magic Link)</Label>
+                  <Input id="magic-email" name="email" type="email" required placeholder="anda@email.com" />
+                </div>
+                <Button type="submit" variant="outline" className="w-full" disabled={loading}>
+                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Kirim Link Login
+                </Button>
+              </form>
             </TabsContent>
 
             <TabsContent value="register" className="space-y-4">
