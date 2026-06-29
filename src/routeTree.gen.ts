@@ -11,11 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as KebijakanIndexRouteImport } from './routes/kebijakan.index'
 import { Route as EventIndexRouteImport } from './routes/event.index'
 import { Route as KebijakanSlugRouteImport } from './routes/kebijakan.$slug'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
+import { Route as AuthenticatedDashboardRiwayatRouteImport } from './routes/_authenticated/dashboard.riwayat'
+import { Route as AuthenticatedDashboardProfilRouteImport } from './routes/_authenticated/dashboard.profil'
+import { Route as AuthenticatedDashboardNotifikasiRouteImport } from './routes/_authenticated/dashboard.notifikasi'
+import { Route as AuthenticatedDashboardBookmarkRouteImport } from './routes/_authenticated/dashboard.bookmark'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -25,6 +31,10 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -52,6 +62,36 @@ const EventSlugRoute = EventSlugRouteImport.update({
   path: '/event/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRiwayatRoute =
+  AuthenticatedDashboardRiwayatRouteImport.update({
+    id: '/dashboard/riwayat',
+    path: '/dashboard/riwayat',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardProfilRoute =
+  AuthenticatedDashboardProfilRouteImport.update({
+    id: '/dashboard/profil',
+    path: '/dashboard/profil',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardNotifikasiRoute =
+  AuthenticatedDashboardNotifikasiRouteImport.update({
+    id: '/dashboard/notifikasi',
+    path: '/dashboard/notifikasi',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardBookmarkRoute =
+  AuthenticatedDashboardBookmarkRouteImport.update({
+    id: '/dashboard/bookmark',
+    path: '/dashboard/bookmark',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +101,11 @@ export interface FileRoutesByFullPath {
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
+  '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
+  '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
+  '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,16 +115,27 @@ export interface FileRoutesByTo {
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event': typeof EventIndexRoute
   '/kebijakan': typeof KebijakanIndexRoute
+  '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
+  '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
+  '/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/event/$slug': typeof EventSlugRoute
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
+  '/_authenticated/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
+  '/_authenticated/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
+  '/_authenticated/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
+  '/_authenticated/dashboard/riwayat': typeof AuthenticatedDashboardRiwayatRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +147,11 @@ export interface FileRouteTypes {
     | '/kebijakan/$slug'
     | '/event/'
     | '/kebijakan/'
+    | '/dashboard/bookmark'
+    | '/dashboard/notifikasi'
+    | '/dashboard/profil'
+    | '/dashboard/riwayat'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,19 +161,31 @@ export interface FileRouteTypes {
     | '/kebijakan/$slug'
     | '/event'
     | '/kebijakan'
+    | '/dashboard/bookmark'
+    | '/dashboard/notifikasi'
+    | '/dashboard/profil'
+    | '/dashboard/riwayat'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/reset-password'
     | '/event/$slug'
     | '/kebijakan/$slug'
     | '/event/'
     | '/kebijakan/'
+    | '/_authenticated/dashboard/bookmark'
+    | '/_authenticated/dashboard/notifikasi'
+    | '/_authenticated/dashboard/profil'
+    | '/_authenticated/dashboard/riwayat'
+    | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   EventSlugRoute: typeof EventSlugRoute
@@ -135,6 +208,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -172,11 +252,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/riwayat': {
+      id: '/_authenticated/dashboard/riwayat'
+      path: '/dashboard/riwayat'
+      fullPath: '/dashboard/riwayat'
+      preLoaderRoute: typeof AuthenticatedDashboardRiwayatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/profil': {
+      id: '/_authenticated/dashboard/profil'
+      path: '/dashboard/profil'
+      fullPath: '/dashboard/profil'
+      preLoaderRoute: typeof AuthenticatedDashboardProfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/notifikasi': {
+      id: '/_authenticated/dashboard/notifikasi'
+      path: '/dashboard/notifikasi'
+      fullPath: '/dashboard/notifikasi'
+      preLoaderRoute: typeof AuthenticatedDashboardNotifikasiRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/bookmark': {
+      id: '/_authenticated/dashboard/bookmark'
+      path: '/dashboard/bookmark'
+      fullPath: '/dashboard/bookmark'
+      preLoaderRoute: typeof AuthenticatedDashboardBookmarkRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardBookmarkRoute: typeof AuthenticatedDashboardBookmarkRoute
+  AuthenticatedDashboardNotifikasiRoute: typeof AuthenticatedDashboardNotifikasiRoute
+  AuthenticatedDashboardProfilRoute: typeof AuthenticatedDashboardProfilRoute
+  AuthenticatedDashboardRiwayatRoute: typeof AuthenticatedDashboardRiwayatRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardBookmarkRoute: AuthenticatedDashboardBookmarkRoute,
+  AuthenticatedDashboardNotifikasiRoute: AuthenticatedDashboardNotifikasiRoute,
+  AuthenticatedDashboardProfilRoute: AuthenticatedDashboardProfilRoute,
+  AuthenticatedDashboardRiwayatRoute: AuthenticatedDashboardRiwayatRoute,
+  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   EventSlugRoute: EventSlugRoute,
