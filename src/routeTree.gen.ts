@@ -24,6 +24,15 @@ import { Route as AuthenticatedDashboardRiwayatRouteImport } from './routes/_aut
 import { Route as AuthenticatedDashboardProfilRouteImport } from './routes/_authenticated/dashboard.profil'
 import { Route as AuthenticatedDashboardNotifikasiRouteImport } from './routes/_authenticated/dashboard.notifikasi'
 import { Route as AuthenticatedDashboardBookmarkRouteImport } from './routes/_authenticated/dashboard.bookmark'
+import { Route as AdminAdminUserRouteImport } from './routes/_admin/admin.user'
+import { Route as AdminAdminPengaturanRouteImport } from './routes/_admin/admin.pengaturan'
+import { Route as AdminAdminKomentarRouteImport } from './routes/_admin/admin.komentar'
+import { Route as AdminAdminKebijakanRouteImport } from './routes/_admin/admin.kebijakan'
+import { Route as AdminAdminKategoriRouteImport } from './routes/_admin/admin.kategori'
+import { Route as AdminAdminInstansiRouteImport } from './routes/_admin/admin.instansi'
+import { Route as AdminAdminEventRouteImport } from './routes/_admin/admin.event'
+import { Route as AdminAdminBannerRouteImport } from './routes/_admin/admin.banner'
+import { Route as AdminAdminAnalitikRouteImport } from './routes/_admin/admin.analitik'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -103,6 +112,51 @@ const AuthenticatedDashboardBookmarkRoute =
     path: '/dashboard/bookmark',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AdminAdminUserRoute = AdminAdminUserRouteImport.update({
+  id: '/admin/user',
+  path: '/admin/user',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminPengaturanRoute = AdminAdminPengaturanRouteImport.update({
+  id: '/admin/pengaturan',
+  path: '/admin/pengaturan',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminKomentarRoute = AdminAdminKomentarRouteImport.update({
+  id: '/admin/komentar',
+  path: '/admin/komentar',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminKebijakanRoute = AdminAdminKebijakanRouteImport.update({
+  id: '/admin/kebijakan',
+  path: '/admin/kebijakan',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminKategoriRoute = AdminAdminKategoriRouteImport.update({
+  id: '/admin/kategori',
+  path: '/admin/kategori',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminInstansiRoute = AdminAdminInstansiRouteImport.update({
+  id: '/admin/instansi',
+  path: '/admin/instansi',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminEventRoute = AdminAdminEventRouteImport.update({
+  id: '/admin/event',
+  path: '/admin/event',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminBannerRoute = AdminAdminBannerRouteImport.update({
+  id: '/admin/banner',
+  path: '/admin/banner',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminAdminAnalitikRoute = AdminAdminAnalitikRouteImport.update({
+  id: '/admin/analitik',
+  path: '/admin/analitik',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -112,6 +166,15 @@ export interface FileRoutesByFullPath {
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
+  '/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/admin/banner': typeof AdminAdminBannerRoute
+  '/admin/event': typeof AdminAdminEventRoute
+  '/admin/instansi': typeof AdminAdminInstansiRoute
+  '/admin/kategori': typeof AdminAdminKategoriRoute
+  '/admin/kebijakan': typeof AdminAdminKebijakanRoute
+  '/admin/komentar': typeof AdminAdminKomentarRoute
+  '/admin/pengaturan': typeof AdminAdminPengaturanRoute
+  '/admin/user': typeof AdminAdminUserRoute
   '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
@@ -127,6 +190,15 @@ export interface FileRoutesByTo {
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event': typeof EventIndexRoute
   '/kebijakan': typeof KebijakanIndexRoute
+  '/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/admin/banner': typeof AdminAdminBannerRoute
+  '/admin/event': typeof AdminAdminEventRoute
+  '/admin/instansi': typeof AdminAdminInstansiRoute
+  '/admin/kategori': typeof AdminAdminKategoriRoute
+  '/admin/kebijakan': typeof AdminAdminKebijakanRoute
+  '/admin/komentar': typeof AdminAdminKomentarRoute
+  '/admin/pengaturan': typeof AdminAdminPengaturanRoute
+  '/admin/user': typeof AdminAdminUserRoute
   '/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
   '/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
@@ -145,6 +217,15 @@ export interface FileRoutesById {
   '/kebijakan/$slug': typeof KebijakanSlugRoute
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
+  '/_admin/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/_admin/admin/banner': typeof AdminAdminBannerRoute
+  '/_admin/admin/event': typeof AdminAdminEventRoute
+  '/_admin/admin/instansi': typeof AdminAdminInstansiRoute
+  '/_admin/admin/kategori': typeof AdminAdminKategoriRoute
+  '/_admin/admin/kebijakan': typeof AdminAdminKebijakanRoute
+  '/_admin/admin/komentar': typeof AdminAdminKomentarRoute
+  '/_admin/admin/pengaturan': typeof AdminAdminPengaturanRoute
+  '/_admin/admin/user': typeof AdminAdminUserRoute
   '/_authenticated/dashboard/bookmark': typeof AuthenticatedDashboardBookmarkRoute
   '/_authenticated/dashboard/notifikasi': typeof AuthenticatedDashboardNotifikasiRoute
   '/_authenticated/dashboard/profil': typeof AuthenticatedDashboardProfilRoute
@@ -162,6 +243,15 @@ export interface FileRouteTypes {
     | '/kebijakan/$slug'
     | '/event/'
     | '/kebijakan/'
+    | '/admin/analitik'
+    | '/admin/banner'
+    | '/admin/event'
+    | '/admin/instansi'
+    | '/admin/kategori'
+    | '/admin/kebijakan'
+    | '/admin/komentar'
+    | '/admin/pengaturan'
+    | '/admin/user'
     | '/dashboard/bookmark'
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
@@ -177,6 +267,15 @@ export interface FileRouteTypes {
     | '/kebijakan/$slug'
     | '/event'
     | '/kebijakan'
+    | '/admin/analitik'
+    | '/admin/banner'
+    | '/admin/event'
+    | '/admin/instansi'
+    | '/admin/kategori'
+    | '/admin/kebijakan'
+    | '/admin/komentar'
+    | '/admin/pengaturan'
+    | '/admin/user'
     | '/dashboard/bookmark'
     | '/dashboard/notifikasi'
     | '/dashboard/profil'
@@ -194,6 +293,15 @@ export interface FileRouteTypes {
     | '/kebijakan/$slug'
     | '/event/'
     | '/kebijakan/'
+    | '/_admin/admin/analitik'
+    | '/_admin/admin/banner'
+    | '/_admin/admin/event'
+    | '/_admin/admin/instansi'
+    | '/_admin/admin/kategori'
+    | '/_admin/admin/kebijakan'
+    | '/_admin/admin/komentar'
+    | '/_admin/admin/pengaturan'
+    | '/_admin/admin/user'
     | '/_authenticated/dashboard/bookmark'
     | '/_authenticated/dashboard/notifikasi'
     | '/_authenticated/dashboard/profil'
@@ -321,14 +429,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardBookmarkRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_admin/admin/user': {
+      id: '/_admin/admin/user'
+      path: '/admin/user'
+      fullPath: '/admin/user'
+      preLoaderRoute: typeof AdminAdminUserRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/pengaturan': {
+      id: '/_admin/admin/pengaturan'
+      path: '/admin/pengaturan'
+      fullPath: '/admin/pengaturan'
+      preLoaderRoute: typeof AdminAdminPengaturanRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/komentar': {
+      id: '/_admin/admin/komentar'
+      path: '/admin/komentar'
+      fullPath: '/admin/komentar'
+      preLoaderRoute: typeof AdminAdminKomentarRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/kebijakan': {
+      id: '/_admin/admin/kebijakan'
+      path: '/admin/kebijakan'
+      fullPath: '/admin/kebijakan'
+      preLoaderRoute: typeof AdminAdminKebijakanRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/kategori': {
+      id: '/_admin/admin/kategori'
+      path: '/admin/kategori'
+      fullPath: '/admin/kategori'
+      preLoaderRoute: typeof AdminAdminKategoriRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/instansi': {
+      id: '/_admin/admin/instansi'
+      path: '/admin/instansi'
+      fullPath: '/admin/instansi'
+      preLoaderRoute: typeof AdminAdminInstansiRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/event': {
+      id: '/_admin/admin/event'
+      path: '/admin/event'
+      fullPath: '/admin/event'
+      preLoaderRoute: typeof AdminAdminEventRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/banner': {
+      id: '/_admin/admin/banner'
+      path: '/admin/banner'
+      fullPath: '/admin/banner'
+      preLoaderRoute: typeof AdminAdminBannerRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/admin/analitik': {
+      id: '/_admin/admin/analitik'
+      path: '/admin/analitik'
+      fullPath: '/admin/analitik'
+      preLoaderRoute: typeof AdminAdminAnalitikRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
 
 interface AdminRouteRouteChildren {
+  AdminAdminAnalitikRoute: typeof AdminAdminAnalitikRoute
+  AdminAdminBannerRoute: typeof AdminAdminBannerRoute
+  AdminAdminEventRoute: typeof AdminAdminEventRoute
+  AdminAdminInstansiRoute: typeof AdminAdminInstansiRoute
+  AdminAdminKategoriRoute: typeof AdminAdminKategoriRoute
+  AdminAdminKebijakanRoute: typeof AdminAdminKebijakanRoute
+  AdminAdminKomentarRoute: typeof AdminAdminKomentarRoute
+  AdminAdminPengaturanRoute: typeof AdminAdminPengaturanRoute
+  AdminAdminUserRoute: typeof AdminAdminUserRoute
   AdminAdminIndexRoute: typeof AdminAdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminAdminAnalitikRoute: AdminAdminAnalitikRoute,
+  AdminAdminBannerRoute: AdminAdminBannerRoute,
+  AdminAdminEventRoute: AdminAdminEventRoute,
+  AdminAdminInstansiRoute: AdminAdminInstansiRoute,
+  AdminAdminKategoriRoute: AdminAdminKategoriRoute,
+  AdminAdminKebijakanRoute: AdminAdminKebijakanRoute,
+  AdminAdminKomentarRoute: AdminAdminKomentarRoute,
+  AdminAdminPengaturanRoute: AdminAdminPengaturanRoute,
+  AdminAdminUserRoute: AdminAdminUserRoute,
   AdminAdminIndexRoute: AdminAdminIndexRoute,
 }
 
