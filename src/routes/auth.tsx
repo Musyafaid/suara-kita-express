@@ -29,13 +29,42 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   const handleGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: window.location.origin + "/auth",
-      },
-    });
-    if (error) toast.error(error.message);
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.href,
+          skipBrowserRedirect: true,
+        },
+      });
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+      if (data?.url) {
+        const popup = window.open(data.url, "oauth", "width=500,height=600,left=" + (window.screenX + (window.outerWidth - 500) / 2) + ",top=" + (window.screenY + (window.outerHeight - 600) / 2));
+        if (!popup) {
+          toast.error("Popup diblokir. Mohon izinkan popup untuk login.");
+          return;
+        }
+        const checkPopup = setInterval(async () => {
+          try {
+            if (popup.closed) {
+              clearInterval(checkPopup);
+              const { data: sessionData } = await supabase.auth.getSession();
+              if (sessionData.session) {
+                toast.success("Berhasil masuk!");
+                navigate({ to: search.redirect ?? "/dashboard" });
+              }
+            }
+          } catch {
+            clearInterval(checkPopup);
+          }
+        }, 500);
+      }
+    } catch (e: any) {
+      toast.error(e.message ?? "Gagal masuk dengan Google");
+    }
   };
 
   // LOGIN
