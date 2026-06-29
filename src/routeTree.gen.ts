@@ -32,6 +32,7 @@ import { Route as AdminAdminKategoriRouteImport } from './routes/_admin/admin.ka
 import { Route as AdminAdminInstansiRouteImport } from './routes/_admin/admin.instansi'
 import { Route as AdminAdminEventRouteImport } from './routes/_admin/admin.event'
 import { Route as AdminAdminBannerRouteImport } from './routes/_admin/admin.banner'
+import { Route as AdminAdminAuditRouteImport } from './routes/_admin/admin.audit'
 import { Route as AdminAdminAnalitikRouteImport } from './routes/_admin/admin.analitik'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -152,6 +153,11 @@ const AdminAdminBannerRoute = AdminAdminBannerRouteImport.update({
   path: '/admin/banner',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminAdminAuditRoute = AdminAdminAuditRouteImport.update({
+  id: '/admin/audit',
+  path: '/admin/audit',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminAdminAnalitikRoute = AdminAdminAnalitikRouteImport.update({
   id: '/admin/analitik',
   path: '/admin/analitik',
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
   '/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/banner': typeof AdminAdminBannerRoute
   '/admin/event': typeof AdminAdminEventRoute
   '/admin/instansi': typeof AdminAdminInstansiRoute
@@ -191,6 +198,7 @@ export interface FileRoutesByTo {
   '/event': typeof EventIndexRoute
   '/kebijakan': typeof KebijakanIndexRoute
   '/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/banner': typeof AdminAdminBannerRoute
   '/admin/event': typeof AdminAdminEventRoute
   '/admin/instansi': typeof AdminAdminInstansiRoute
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
   '/_admin/admin/analitik': typeof AdminAdminAnalitikRoute
+  '/_admin/admin/audit': typeof AdminAdminAuditRoute
   '/_admin/admin/banner': typeof AdminAdminBannerRoute
   '/_admin/admin/event': typeof AdminAdminEventRoute
   '/_admin/admin/instansi': typeof AdminAdminInstansiRoute
@@ -244,6 +253,7 @@ export interface FileRouteTypes {
     | '/event/'
     | '/kebijakan/'
     | '/admin/analitik'
+    | '/admin/audit'
     | '/admin/banner'
     | '/admin/event'
     | '/admin/instansi'
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
     | '/event'
     | '/kebijakan'
     | '/admin/analitik'
+    | '/admin/audit'
     | '/admin/banner'
     | '/admin/event'
     | '/admin/instansi'
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/event/'
     | '/kebijakan/'
     | '/_admin/admin/analitik'
+    | '/_admin/admin/audit'
     | '/_admin/admin/banner'
     | '/_admin/admin/event'
     | '/_admin/admin/instansi'
@@ -485,6 +497,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminBannerRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/_admin/admin/audit': {
+      id: '/_admin/admin/audit'
+      path: '/admin/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AdminAdminAuditRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/_admin/admin/analitik': {
       id: '/_admin/admin/analitik'
       path: '/admin/analitik'
@@ -497,6 +516,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminAdminAnalitikRoute: typeof AdminAdminAnalitikRoute
+  AdminAdminAuditRoute: typeof AdminAdminAuditRoute
   AdminAdminBannerRoute: typeof AdminAdminBannerRoute
   AdminAdminEventRoute: typeof AdminAdminEventRoute
   AdminAdminInstansiRoute: typeof AdminAdminInstansiRoute
@@ -510,6 +530,7 @@ interface AdminRouteRouteChildren {
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAdminAnalitikRoute: AdminAdminAnalitikRoute,
+  AdminAdminAuditRoute: AdminAdminAuditRoute,
   AdminAdminBannerRoute: AdminAdminBannerRoute,
   AdminAdminEventRoute: AdminAdminEventRoute,
   AdminAdminInstansiRoute: AdminAdminInstansiRoute,
