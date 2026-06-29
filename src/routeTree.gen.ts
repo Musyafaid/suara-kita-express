@@ -13,7 +13,9 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as KebijakanIndexRouteImport } from './routes/kebijakan.index'
+import { Route as EventIndexRouteImport } from './routes/event.index'
 import { Route as KebijakanSlugRouteImport } from './routes/kebijakan.$slug'
+import { Route as EventSlugRouteImport } from './routes/event.$slug'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -35,9 +37,19 @@ const KebijakanIndexRoute = KebijakanIndexRouteImport.update({
   path: '/kebijakan/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventIndexRoute = EventIndexRouteImport.update({
+  id: '/event/',
+  path: '/event/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KebijakanSlugRoute = KebijakanSlugRouteImport.update({
   id: '/kebijakan/$slug',
   path: '/kebijakan/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventSlugRoute = EventSlugRouteImport.update({
+  id: '/event/$slug',
+  path: '/event/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -45,14 +57,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/event/$slug': typeof EventSlugRoute
   '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/event/$slug': typeof EventSlugRoute
   '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/event': typeof EventIndexRoute
   '/kebijakan': typeof KebijakanIndexRoute
 }
 export interface FileRoutesById {
@@ -60,7 +76,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/event/$slug': typeof EventSlugRoute
   '/kebijakan/$slug': typeof KebijakanSlugRoute
+  '/event/': typeof EventIndexRoute
   '/kebijakan/': typeof KebijakanIndexRoute
 }
 export interface FileRouteTypes {
@@ -69,16 +87,27 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/event/$slug'
     | '/kebijakan/$slug'
+    | '/event/'
     | '/kebijakan/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password' | '/kebijakan/$slug' | '/kebijakan'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/event/$slug'
+    | '/kebijakan/$slug'
+    | '/event'
+    | '/kebijakan'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/event/$slug'
     | '/kebijakan/$slug'
+    | '/event/'
     | '/kebijakan/'
   fileRoutesById: FileRoutesById
 }
@@ -86,7 +115,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  EventSlugRoute: typeof EventSlugRoute
   KebijakanSlugRoute: typeof KebijakanSlugRoute
+  EventIndexRoute: typeof EventIndexRoute
   KebijakanIndexRoute: typeof KebijakanIndexRoute
 }
 
@@ -120,11 +151,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KebijakanIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/event/': {
+      id: '/event/'
+      path: '/event'
+      fullPath: '/event/'
+      preLoaderRoute: typeof EventIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kebijakan/$slug': {
       id: '/kebijakan/$slug'
       path: '/kebijakan/$slug'
       fullPath: '/kebijakan/$slug'
       preLoaderRoute: typeof KebijakanSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event/$slug': {
+      id: '/event/$slug'
+      path: '/event/$slug'
+      fullPath: '/event/$slug'
+      preLoaderRoute: typeof EventSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -134,7 +179,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  EventSlugRoute: EventSlugRoute,
   KebijakanSlugRoute: KebijakanSlugRoute,
+  EventIndexRoute: EventIndexRoute,
   KebijakanIndexRoute: KebijakanIndexRoute,
 }
 export const routeTree = rootRouteImport
