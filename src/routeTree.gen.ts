@@ -29,6 +29,7 @@ import { Route as AdminAdminPengaturanRouteImport } from './routes/_admin/admin.
 import { Route as AdminAdminKomentarRouteImport } from './routes/_admin/admin.komentar'
 import { Route as AdminAdminKebijakanRouteImport } from './routes/_admin/admin.kebijakan'
 import { Route as AdminAdminKategoriRouteImport } from './routes/_admin/admin.kategori'
+import { Route as AdminAdminInviteRouteImport } from './routes/_admin/admin.invite'
 import { Route as AdminAdminInstansiRouteImport } from './routes/_admin/admin.instansi'
 import { Route as AdminAdminEventRouteImport } from './routes/_admin/admin.event'
 import { Route as AdminAdminBannerRouteImport } from './routes/_admin/admin.banner'
@@ -138,6 +139,11 @@ const AdminAdminKategoriRoute = AdminAdminKategoriRouteImport.update({
   path: '/admin/kategori',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminAdminInviteRoute = AdminAdminInviteRouteImport.update({
+  id: '/admin/invite',
+  path: '/admin/invite',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminAdminInstansiRoute = AdminAdminInstansiRouteImport.update({
   id: '/admin/instansi',
   path: '/admin/instansi',
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/admin/banner': typeof AdminAdminBannerRoute
   '/admin/event': typeof AdminAdminEventRoute
   '/admin/instansi': typeof AdminAdminInstansiRoute
+  '/admin/invite': typeof AdminAdminInviteRoute
   '/admin/kategori': typeof AdminAdminKategoriRoute
   '/admin/kebijakan': typeof AdminAdminKebijakanRoute
   '/admin/komentar': typeof AdminAdminKomentarRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/admin/banner': typeof AdminAdminBannerRoute
   '/admin/event': typeof AdminAdminEventRoute
   '/admin/instansi': typeof AdminAdminInstansiRoute
+  '/admin/invite': typeof AdminAdminInviteRoute
   '/admin/kategori': typeof AdminAdminKategoriRoute
   '/admin/kebijakan': typeof AdminAdminKebijakanRoute
   '/admin/komentar': typeof AdminAdminKomentarRoute
@@ -230,6 +238,7 @@ export interface FileRoutesById {
   '/_admin/admin/banner': typeof AdminAdminBannerRoute
   '/_admin/admin/event': typeof AdminAdminEventRoute
   '/_admin/admin/instansi': typeof AdminAdminInstansiRoute
+  '/_admin/admin/invite': typeof AdminAdminInviteRoute
   '/_admin/admin/kategori': typeof AdminAdminKategoriRoute
   '/_admin/admin/kebijakan': typeof AdminAdminKebijakanRoute
   '/_admin/admin/komentar': typeof AdminAdminKomentarRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/admin/banner'
     | '/admin/event'
     | '/admin/instansi'
+    | '/admin/invite'
     | '/admin/kategori'
     | '/admin/kebijakan'
     | '/admin/komentar'
@@ -282,6 +292,7 @@ export interface FileRouteTypes {
     | '/admin/banner'
     | '/admin/event'
     | '/admin/instansi'
+    | '/admin/invite'
     | '/admin/kategori'
     | '/admin/kebijakan'
     | '/admin/komentar'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/_admin/admin/banner'
     | '/_admin/admin/event'
     | '/_admin/admin/instansi'
+    | '/_admin/admin/invite'
     | '/_admin/admin/kategori'
     | '/_admin/admin/kebijakan'
     | '/_admin/admin/komentar'
@@ -476,6 +488,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminKategoriRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/_admin/admin/invite': {
+      id: '/_admin/admin/invite'
+      path: '/admin/invite'
+      fullPath: '/admin/invite'
+      preLoaderRoute: typeof AdminAdminInviteRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/_admin/admin/instansi': {
       id: '/_admin/admin/instansi'
       path: '/admin/instansi'
@@ -520,6 +539,7 @@ interface AdminRouteRouteChildren {
   AdminAdminBannerRoute: typeof AdminAdminBannerRoute
   AdminAdminEventRoute: typeof AdminAdminEventRoute
   AdminAdminInstansiRoute: typeof AdminAdminInstansiRoute
+  AdminAdminInviteRoute: typeof AdminAdminInviteRoute
   AdminAdminKategoriRoute: typeof AdminAdminKategoriRoute
   AdminAdminKebijakanRoute: typeof AdminAdminKebijakanRoute
   AdminAdminKomentarRoute: typeof AdminAdminKomentarRoute
@@ -534,6 +554,7 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminAdminBannerRoute: AdminAdminBannerRoute,
   AdminAdminEventRoute: AdminAdminEventRoute,
   AdminAdminInstansiRoute: AdminAdminInstansiRoute,
+  AdminAdminInviteRoute: AdminAdminInviteRoute,
   AdminAdminKategoriRoute: AdminAdminKategoriRoute,
   AdminAdminKebijakanRoute: AdminAdminKebijakanRoute,
   AdminAdminKomentarRoute: AdminAdminKomentarRoute,
