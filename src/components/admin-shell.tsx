@@ -3,7 +3,7 @@ import { useAuth } from "@/lib/auth-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
-  BarChart3, Building2, FileText, History, Image as ImageIcon, LayoutDashboard, LogOut, MessageSquare,
+  BarChart3, Building2, FileText, History, Image as ImageIcon, LayoutDashboard, LogOut, Mail, MessageSquare,
   Settings, Shield, Tag, Users, Vote,
 } from "lucide-react";
 
@@ -17,6 +17,7 @@ const items = [
   { to: "/admin/analitik", label: "Analitik", icon: BarChart3 },
   { to: "/admin/audit", label: "Audit Logs", icon: History },
   { to: "/admin/user", label: "Pengguna", icon: Users },
+  { to: "/admin/invite", label: "Undangan Admin", icon: Mail },
   { to: "/admin/banner", label: "Banner", icon: ImageIcon },
   { to: "/admin/pengaturan", label: "Pengaturan", icon: Settings },
 ];

@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useAuth } from "@/lib/auth-context";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, Bookmark, History, LayoutDashboard, LogOut, User as UserIcon, Vote } from "lucide-react";
+import { Bell, Bookmark, History, KeyRound, LayoutDashboard, LogOut, User as UserIcon, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const items = [
@@ -9,6 +9,7 @@ const items = [
   { to: "/dashboard/bookmark", label: "Bookmark", icon: Bookmark },
   { to: "/dashboard/riwayat", label: "Riwayat Voting", icon: History },
   { to: "/dashboard/notifikasi", label: "Notifikasi", icon: Bell },
+  { to: "/dashboard/invite", label: "Tukar Kode Admin", icon: KeyRound },
   { to: "/dashboard/profil", label: "Profil", icon: UserIcon },
 ];
 
